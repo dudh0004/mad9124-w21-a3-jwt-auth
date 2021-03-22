@@ -2,18 +2,33 @@
   "name": "mad9124-w21-a3-jwt-auth",
   "version": "0.1.0",
   "description": "",
-  "main": "app.js",
+  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=mad9124-w21-a3-jwt-auth* nodemon server.js"
   },
   "keywords": [
     "MAD9124",
     "W21"
   ],
-  "author": "",
+  "author": "Ekta Paras Dudhatra",
   "contributors": [
     "Robert McKenney <mckennr@algonquincollege.com>"
   ],
   "license": "ISC",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "debug": "^2.6.9",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.1",
+    "morgan": "^1.10.0",
+    "xss": "^1.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
