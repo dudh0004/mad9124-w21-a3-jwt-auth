@@ -32,13 +32,14 @@ router.post('/', sanitizeBody, authUser, async (req, res) => {
         {
             throw new Error ('You are not Authorized.')
         } 
-        else if(user.isAdmin == false) 
-        throw new Error ('You are not an admin user')
+        else if(!user.isAdmin) 
+            throw new Error ('You are not an admin user')
+
         const newCourse = new Course(req.sanitizedBody)
         await newCourse.save()
         res.send({data: newCourse})
         } catch (err) {
-        sendResourceNotFound(err)
+            sendResourceNotFound(err)
         }
 })
 
@@ -52,7 +53,7 @@ router.patch('/:id', sanitizeBody, authUser, async (req, res) => {
             throw new Error ('You are not Authorized.')
         } 
         else if(!user.isAdmin) 
-        throw new Error ('You are not an admin user')
+            throw new Error ('You are not an admin user')
 
         const course = await Course.findByIdAndUpdate(
         req.params.id, 
@@ -81,7 +82,7 @@ router.put('/:id', sanitizeBody, authUser, async (req, res) => {
             throw new Error ('You are not Authorized.')
         } 
         else if(!user.isAdmin) 
-        throw new Error ('You are not an admin user')
+            throw new Error ('You are not an admin user')
 
         const course = await Course.findByIdAndUpdate(
         req.params.id, 
@@ -110,7 +111,7 @@ router.delete('/:id', sanitizeBody, authUser, async (req, res) => {
             throw new Error ('You are not Authorized.')
         } 
         else if(!user.isAdmin) 
-        throw new Error ('You are not an admin user')
+            throw new Error ('You are not an admin user')
 
         const course = await Course.findByIdAndRemove(req.params.id)
         if (!course) {

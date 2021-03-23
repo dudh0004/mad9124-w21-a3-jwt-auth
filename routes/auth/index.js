@@ -44,7 +44,7 @@ router.post('/users', sanitizeBody, async(req, res) => {
     }
 })
 
-router.get('/users/me', authUser, async (req, res) => {
+router.get('/users/me', authUser, async(req, res) => {
     req.user._id
     const user = await User.findById(req.user._id)
     res.send({ data: user })
@@ -52,13 +52,13 @@ router.get('/users/me', authUser, async (req, res) => {
 
 router.post('/tokens', sanitizeBody, async(req, res) => {
     const {email, password} = req.sanitizedBody
-    let didSucceed = null
-
+    let didSucceed = null;
     const user = await User.authenticate(email, password)
-
-    if (!user) {
-        didSucceed = false
-        const {email} = req.sanitizedBody
+        if (user) {
+            didSucceed = true
+        } else {
+            didSucceed = false
+        }
         const loginAttempt = {
             username: email,
             ipAddress: req.ip,
@@ -67,18 +67,18 @@ router.post('/tokens', sanitizeBody, async(req, res) => {
         }
         let newAttempt = new loginAttempts(loginAttempt)
         await newAttempt.save()
-        return res.status(401).send({ errors: [
-            {
-                status: '401',
-                title: 'Incorrect username or password.',
-            },
-        ],
-    })
-}
+        
+        if (!user) {
+            return res.status(401).send({ errors: [
+                {
+                    status: '401',
+                    title: 'Incorrect username or password.',
+                },
+            ],
+        })
+    }
 
     res.status(201).send({ data: { token: user.generateAuthToken() } })
 })
-
-
 
 export default router

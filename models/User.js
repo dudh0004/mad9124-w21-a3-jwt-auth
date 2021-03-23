@@ -15,7 +15,7 @@ const schema = new mongoose.Schema({
 
 schema.methods.generateAuthToken = function () {
     const payload = { uid: this._id }
-    return jwt.sign(payload, 'superSecureSecret', jwtSecretKey, { expiresIn: '1h', algorithm: 'HS256' })
+    return jwt.sign(payload, jwtSecretKey, { expiresIn: '1h', algorithm: 'HS256' })
 }
 
 schema.methods.toJSON = function () {

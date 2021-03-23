@@ -1,5 +1,3 @@
-'use strict'
-
 import morgan from 'morgan'
 import express from 'express'
 import sanitizeMongo from 'express-mongo-sanitize'

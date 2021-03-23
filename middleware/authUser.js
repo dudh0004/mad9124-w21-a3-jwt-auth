@@ -1,12 +1,14 @@
 import jwt from 'jsonwebtoken'
-const jwtSecretKey = 'superSecureSecret'
+const jwtSecretKey = 'superSecretKey'
 
 const parseToken = function (headerValue) {
     if (headerValue) {
-        const [type, token] = headerValue.split('')
-        if (type === 'Bearer' && typeof token !== 'undefined')
+        const [type, token] = headerValue.split(' ')
+        if (type === 'Bearer' && typeof token !== 'undefined'){
             return token
+        }
     }
+    
     return undefined
 }
 
@@ -28,7 +30,7 @@ export default function (req, res, next) {
     }
     // Validate the JWT
     try {
-    const payload = jwt.verify(token, jwtSecretKey, { algorithm: 'HS256' })
+    const payload = jwt.verify(token, jwtSecretKey, { algorithms: ['HS256'] })
     req.user = { _id: payload.uid }
     next()
     } catch (err) {

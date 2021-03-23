@@ -35,13 +35,13 @@ router.post('/', sanitizeBody,  authUser, async (req, res) => {
             throw new Error ('You are not Authorized.')
         }
         else if(!user.isAdmin) 
-        throw new Error ('You are not an admin user')
+            throw new Error ('You are not an admin user')
 
         const newStudent = new Student(req.sanitizedBody)
         await newStudent.save()
         res.send({data: newStudent})
         } catch (err) {
-        sendResourceNotFound(err)
+            sendResourceNotFound(err)
         }
         
     })
@@ -56,10 +56,8 @@ router.patch('/:id', sanitizeBody,  authUser, async (req, res) => {
             throw new Error ('You are not Authorized.')
         }
         else if(!user.isAdmin) 
-        throw new Error ('You are not an admin user')
+            throw new Error ('You are not an admin user')
 
-        const student1 = await Student.findById(req.params.id)
-        console.log(student1);
         const student = await Student.findByIdAndUpdate(
         req.params.id, 
         {_id: req.params.id, ...otherAttributes}, 
@@ -67,13 +65,13 @@ router.patch('/:id', sanitizeBody,  authUser, async (req, res) => {
             new: true,
             runValidators: true
         })
-    if (!student) {
-        throw new Error('Resource not found')
-    }
-    res.send({data: student})
-    } catch (err) {
-        sendResourceNotFound(req, res)
-    }
+        if (!student) {
+            throw new Error('Resource not found')
+        }
+        res.send({data: student})
+        } catch (err) {
+            sendResourceNotFound(req, res)
+        }
 })
 
 router.put('/:id', sanitizeBody,  authUser, async (req, res) => {
@@ -95,15 +93,14 @@ router.put('/:id', sanitizeBody,  authUser, async (req, res) => {
             new: true,
             overwrite: true,
             runValidators: true
+        })
+        if (!student) {
+            throw new Error('Resource not found')
         }
-    )
-    if (!student) {
-        throw new Error('Resource not found')
-    }
-    res.send({data: student})
-    } catch (err) {
-        sendResourceNotFound(req, res)
-    }
+        res.send({data: student})
+        } catch (err) {
+            sendResourceNotFound(req, res)
+        }
 })
 
 router.delete('/:id', sanitizeBody,  authUser, async (req, res) => {

@@ -1,7 +1,7 @@
 {
   "name": "mad9124-w21-a3-jwt-auth",
   "version": "0.1.0",
-  "description": "",
+  "description": "JWT Authentication",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "MAD9124",
     "W21"
   ],
-  "author": "Ekta Paras Dudhatra",
+  "author": "Ekta Dudhatra <dudh0004@algonquinlive.com>",
   "contributors": [
     "Robert McKenney <mckennr@algonquincollege.com>"
   ],
